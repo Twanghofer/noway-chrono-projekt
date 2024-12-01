@@ -1,3 +1,10 @@
+export const nowaySummonerDetails = {
+  puuid:
+    "J2pN_3-ZkvXCmOeMQP6P_G4lyHZxFdoWSVuNDuaRW9vyhnYHvnxvhBQSm8MlYI8M6J82_JWpT-RAdw",
+  gameName: "MatheMann4u",
+  tagLine: "EUW",
+} as const;
+
 export const championReleaseDates = {
   Alistar: "2009-02-21",
   Annie: "2009-02-21",

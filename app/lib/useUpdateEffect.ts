@@ -2,7 +2,7 @@ import { api } from "@/convex/_generated/api";
 import { useAction } from "convex/react";
 import React from "react";
 
-export default function useUpdateChampionsEffect() {
+export function useUpdateChampionsEffect() {
   const updateChampions = useAction(api.champions.update);
 
   const hasUpdatedChampions = React.useRef(false);
@@ -11,6 +11,19 @@ export default function useUpdateChampionsEffect() {
     if (!hasUpdatedChampions.current) {
       updateChampions();
       hasUpdatedChampions.current = true;
+    }
+  }, []);
+}
+
+export function useUpdateChampionWinsEffect() {
+  const updateChampionWins = useAction(api.matches.update);
+
+  const hasUpdatedChampionWins = React.useRef(false);
+
+  React.useEffect(() => {
+    if (!hasUpdatedChampionWins.current) {
+      updateChampionWins();
+      hasUpdatedChampionWins.current = true;
     }
   }, []);
 }

@@ -1,5 +1,6 @@
 import { v } from "convex/values";
-import { championReleaseDates } from "../app/lib/constants";
+import { fetchHelper } from "../lib/api";
+import { championReleaseDates } from "../lib/constants";
 import { internal } from "./_generated/api";
 import { action, internalMutation, query } from "./_generated/server";
 import { championSchema } from "./schema";
@@ -55,14 +56,11 @@ export const store = internalMutation({
 export const update = action({
   args: {},
   handler: async (ctx) => {
-    const data = await fetch(
+    const response = await fetchHelper<DataDragonChampionAPIResponse>(
       `${DATA_DRAGON_BASE_URL}/data/en_US/champion.json`,
     );
-    const json = await data.json();
 
-    const resposne = json as DataDragonChampionAPIResponse;
-
-    const champions = Object.values(resposne.data).map((champion) => ({
+    const champions = Object.values(response.data).map((champion) => ({
       id: champion.id,
       name: champion.name,
       key: champion.key,

@@ -9,6 +9,7 @@
  */
 
 import type * as champions from "../champions.js";
+import type * as matches from "../matches.js";
 
 import type {
   ApiFromModules,
@@ -25,6 +26,7 @@ import type {
  */
 declare const fullApi: ApiFromModules<{
   champions: typeof champions;
+  matches: typeof matches;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 
