@@ -1,4 +1,3 @@
-import { nowaySummonerDetails } from "./constants";
 import RateLimiter from "./rateLimiter";
 import { MatchV5DTOs } from "./riot-api";
 
@@ -39,7 +38,7 @@ export async function getMatchList({ page = 1 } = {}) {
   const PER_PAGE = 10;
 
   const matchIds = await fetchFromRiotApi<string[]>(
-    `${LOL_MATCH_API_BASE_URL}/by-puuid/${nowaySummonerDetails.puuid}/ids?queue=420&startTime=1710264413&start=${(page - 1) * PER_PAGE}&count=${PER_PAGE}`,
+    `${LOL_MATCH_API_BASE_URL}/by-puuid/${process.env.RIOT_ACCOUNT_PUUID}/ids?queue=420&startTime=1710264413&start=${(page - 1) * PER_PAGE}&count=${PER_PAGE}`,
   );
 
   return {
@@ -54,7 +53,7 @@ export async function getMatchDetails(matchId: string) {
   )) as MatchV5DTOs.MatchDto;
 
   const playerParticipation = matchDetails.info.participants.find(
-    (p) => p.puuid === nowaySummonerDetails.puuid,
+    (p) => p.puuid === process.env.RIOT_ACCOUNT_PUUID,
   );
 
   if (!playerParticipation) {
