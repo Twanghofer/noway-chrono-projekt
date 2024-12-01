@@ -1,8 +1,12 @@
 import { v } from "convex/values";
-import { api } from "./_generated/api";
-import { action, internalMutation, query } from "./_generated/server";
-import { getMatchDetails, getMatchListByPuuid } from "./lib/api";
-import { nowaySummonerDetails } from "./lib/constants";
+import { api, internal } from "./_generated/api";
+import {
+  action,
+  ActionCtx,
+  internalMutation,
+  query,
+} from "./_generated/server";
+import { getMatchDetails, getMatchList } from "./lib/api";
 import { matchSchema } from "./schema";
 
 export const store = internalMutation({
@@ -37,18 +41,54 @@ export const byId = query({
 export const update = action({
   args: {},
   handler: async (ctx) => {
-    const matchIds = await getMatchListByPuuid(nowaySummonerDetails.puuid);
+    let page: number | null = 1;
 
-    await Promise.all(
-      matchIds.map(async (matchId) => {
-        const { ...match } = await getMatchDetails(matchId);
-        console.log(match);
-
-        /*  await ctx.runMutation(internal.matches.store, { match: {
-          ...match,
-          champion: championId as Id<'champions'>,
-        } }); */
-      }),
-    );
+    while (page) {
+      const { nextPage } = await updateMatches(ctx, { page });
+      page = nextPage;
+    }
   },
 });
+
+async function updateMatches(
+  ctx: ActionCtx,
+  { page = 1 }: { page?: number } = {},
+) {
+  const { matchIds, nextPage } = await getMatchList({ page });
+  const newMatchIds: typeof matchIds = [];
+
+  for (const matchId of matchIds) {
+    const matchInDb = await ctx.runQuery(api.matches.byId, { id: matchId });
+
+    if (!matchInDb) {
+      newMatchIds.push(matchId);
+    }
+  }
+
+  // Since new matches are the most recent, we can stop as soon as there are no new matches (we assume the older matches are already in the database)
+  if (!newMatchIds.length) {
+    return { nextPage: null };
+  }
+
+  await Promise.all(
+    newMatchIds.map(async (matchId) => {
+      const { championKey, ...match } = await getMatchDetails(matchId);
+      const champion = await ctx.runQuery(internal.champions.byKey, {
+        key: championKey,
+      });
+
+      if (!champion) {
+        throw new Error(`Champion with key ${championKey} not found`);
+      }
+
+      await ctx.runMutation(internal.matches.store, {
+        match: {
+          ...match,
+          champion: champion?._id,
+        },
+      });
+    }),
+  );
+
+  return { nextPage };
+}

@@ -2,6 +2,7 @@
 
 import { api } from "@/convex/_generated/api";
 import { Preloaded, usePreloadedQuery } from "convex/react";
+import { useUpdateMatchesEffect } from "../lib/useUpdateEffect";
 
 export default function ChampionList(
   props: Readonly<{
@@ -9,6 +10,8 @@ export default function ChampionList(
   }>,
 ) {
   const champions = usePreloadedQuery(props.prefetchedChampions);
+
+  useUpdateMatchesEffect();
 
   return (
     <div>

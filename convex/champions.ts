@@ -1,6 +1,11 @@
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
-import { action, internalMutation, query } from "./_generated/server";
+import {
+  action,
+  internalMutation,
+  internalQuery,
+  query,
+} from "./_generated/server";
 import { fetchHelper } from "./lib/api";
 import { championReleaseDates } from "./lib/constants";
 import { championSchema } from "./schema";
@@ -28,6 +33,18 @@ export const list = query({
       (a, b) =>
         new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime(),
     );
+  },
+});
+
+export const byKey = internalQuery({
+  args: {
+    key: v.string(),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("champions")
+      .withIndex("by_champion_key", (q) => q.eq("key", args.key))
+      .unique();
   },
 });
 

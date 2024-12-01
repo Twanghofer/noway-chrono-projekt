@@ -11,6 +11,7 @@
 import type * as champions from "../champions.js";
 import type * as lib_api from "../lib/api.js";
 import type * as lib_constants from "../lib/constants.js";
+import type * as lib_rateLimiter from "../lib/rateLimiter.js";
 import type * as matches from "../matches.js";
 
 import type {
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   champions: typeof champions;
   "lib/api": typeof lib_api;
   "lib/constants": typeof lib_constants;
+  "lib/rateLimiter": typeof lib_rateLimiter;
   matches: typeof matches;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
