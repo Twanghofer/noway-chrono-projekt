@@ -15,15 +15,15 @@ export function useUpdateChampionsEffect() {
   }, []);
 }
 
-export function useUpdateChampionWinsEffect() {
-  const updateChampionWins = useAction(api.matches.update);
+export function useUpdateMatchesEffect() {
+  const updateMatches = useAction(api.matches.update);
 
-  const hasUpdatedChampionWins = React.useRef(false);
+  const hasUpdatedMatches = React.useRef(false);
 
   React.useEffect(() => {
-    if (!hasUpdatedChampionWins.current) {
-      updateChampionWins();
-      hasUpdatedChampionWins.current = true;
+    if (!hasUpdatedMatches.current) {
+      updateMatches();
+      hasUpdatedMatches.current = true;
     }
   }, []);
 }
