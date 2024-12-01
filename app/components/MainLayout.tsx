@@ -24,76 +24,89 @@ export default function MainLayout(
       .slice(0, 3);
   }, [champions, currentChampion]);
 
+  const amountChampionsDone = React.useMemo(() => {
+    return champions?.filter((champion) => champion.wins).length;
+  }, [champions]);
+
   useUpdateMatchesEffect();
 
   return (
     <main>
-      <h1 className="text-4xl md:text-6xl py-3 md:py-8 mb-6 md:mb-10 border-b">
-        Chrono Projekt
-      </h1>
+      <div className="flex flex-row items-center justify-center gap-1 md:gap-2.5 text-4xl md:text-6xl mb-6 md:mb-12 border-b">
+        <img
+          src="/relaxo.png"
+          alt="Noway"
+          className="aspect-square size-12  md:size-24"
+        />
+        <h1 className="py-3 md:py-8">Chrono Projekt</h1>
+      </div>
 
-      <div className="space-y-10 ">
-        {currentChampion ? (
-          <div className="flex flex-col gap-8 md:flex-row md:gap-6">
-            <div className="flex-grow">
-              <SubHeadline>Aktueller Champion</SubHeadline>
+      {champions && (
+        <div className="space-y-10 ">
+          {currentChampion ? (
+            <div className="flex flex-col gap-8 md:flex-row md:gap-6">
+              <div className="flex-grow">
+                <SubHeadline>Aktueller Champion</SubHeadline>
+                <div>
+                  <CurrentChampionBox champion={currentChampion} />
+                </div>
+              </div>
+
               <div>
-                <CurrentChampionBox champion={currentChampion} />
+                <SubHeadline>Nächste Champions</SubHeadline>
+                <ul className="flex flex-row flex-wrap gap-4 md:block md:space-y-5">
+                  {upcomingChampions?.map((champion) => (
+                    <li key={champion.id} className="flex">
+                      <ChampionAvatar champion={champion} className="size-28" />
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-
-            <div>
-              <SubHeadline>Nächste Champions</SubHeadline>
-              <ul className="flex flex-row gap-4 md:block md:space-y-5">
-                {upcomingChampions?.map((champion) => (
-                  <li key={champion.id} className="flex">
-                    <ChampionAvatar champion={champion} className="size-28" />
-                  </li>
-                ))}
-              </ul>
+          ) : (
+            <div className="text-center text-green-500 text-2xl md:text-3xl">
+              Challenge completed! Congratulations! 🎉
             </div>
-          </div>
-        ) : (
-          <div className="text-center text-green-500 text-3xl">
-            Challenge completed! Congratulations! 🎉
-          </div>
-        )}
+          )}
 
-        <div>
-          <SubHeadline>Alle Champions</SubHeadline>
+          <div>
+            <SubHeadline>
+              Alle Champions ({amountChampionsDone} / {champions.length})
+            </SubHeadline>
 
-          <ul className="grid grid-cols-[repeat(auto-fill,minmax(clamp(12%,90px,30%),1fr))] gap-4">
-            {champions?.map((champion) => (
-              <li
-                key={champion.id}
-                className={`border ${champion.wins ? "border-2 border-green-900" : ""} ${champion === currentChampion ? "border-2 border-foreground/75" : ""}`}
-                title={`Release Datum: ${new Date(champion.releaseDate).toLocaleDateString("de-DE")}`}
-              >
-                <ChampionAvatar champion={champion} className="w-full" />
+            <ul className="grid grid-cols-[repeat(auto-fill,minmax(clamp(12%,100px,30%),1fr))] gap-4">
+              {champions.map((champion) => (
+                <li
+                  key={champion.id}
+                  className={`border ${champion.wins ? "border-2 border-green-950" : ""} ${champion === currentChampion ? "border-2 border-foreground/75" : ""}`}
+                  title={`Release Datum: ${new Date(champion.releaseDate).toLocaleDateString("de-DE")}`}
+                >
+                  <ChampionAvatar champion={champion} className="w-full" />
 
-                <div className="text-center p-1.5">
-                  <h3 className="font-medium">{champion.name}</h3>
+                  <div className="text-center p-1.5">
+                    <h3 className="font-medium">{champion.name}</h3>
 
-                  <div className="text-sm">
-                    {champion.matches.length > 0 &&
-                      (champion.losses ? (
-                        <div>
-                          {champion.wins} - {champion.losses}
-                        </div>
-                      ) : (
-                        <div
-                          className={!champion.losses ? "text-green-500" : ""}
-                        >
-                          Perfect
-                        </div>
-                      ))}
+                    <div className="text-sm">
+                      {champion.matches.length > 0 &&
+                        (champion.losses ? (
+                          <div>
+                            {champion.wins} - {champion.losses}
+                          </div>
+                        ) : (
+                          <div
+                            className={!champion.losses ? "text-green-500" : ""}
+                          >
+                            Perfect
+                          </div>
+                        ))}
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }
