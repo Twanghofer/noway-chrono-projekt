@@ -1,8 +1,8 @@
 import { v } from "convex/values";
-import { fetchHelper } from "../lib/api";
-import { championReleaseDates } from "../lib/constants";
 import { internal } from "./_generated/api";
 import { action, internalMutation, query } from "./_generated/server";
+import { fetchHelper } from "./lib/api";
+import { championReleaseDates } from "./lib/constants";
 import { championSchema } from "./schema";
 
 const DATA_DRAGON_BASE_URL = "https://ddragon.leagueoflegends.com/cdn/14.23.1";

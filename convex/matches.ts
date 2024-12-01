@@ -1,8 +1,8 @@
 import { v } from "convex/values";
-import { getMatchDetails, getMatchListByPuuid } from "../lib/api";
-import { nowaySummonerDetails } from "../lib/constants";
 import { api } from "./_generated/api";
 import { action, internalMutation, query } from "./_generated/server";
+import { getMatchDetails, getMatchListByPuuid } from "./lib/api";
+import { nowaySummonerDetails } from "./lib/constants";
 import { matchSchema } from "./schema";
 
 export const store = internalMutation({
