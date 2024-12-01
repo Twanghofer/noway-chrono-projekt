@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 import { FunctionReturnType } from "convex/server";
 import { useFormatter } from "next-intl";
+import Link from "next/link";
 import React from "react";
 import ChampionAvatar from "./ChampionAvatar";
 
@@ -61,7 +62,14 @@ export default function CurrentChampionBox(
                   / {match.playerStats.assists}
                 </div>
 
-                <Button className="ml-auto">OP.GG</Button>
+                <Button className="ml-auto" asChild>
+                  <Link
+                    href={`https://www.deeplol.gg/summoner/euw/MatheMann4u-EUW/matches/${match.id}`}
+                    target="_blank"
+                  >
+                    Details
+                  </Link>
+                </Button>
               </div>
             </li>
           ))}
