@@ -20,10 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} dark`}>
+      <body
+        className={`${inter.className} dark mx-auto w-full max-w-screen-lg p-4`}
+      >
         <ConvexClientProvider>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </ConvexClientProvider>
+
+        <hr className="mt-6 mb-3" />
+
+        <footer className="text-sm text-center">
+          Made with ❤️ by <strong>Tobito</strong>
+        </footer>
       </body>
     </html>
   );

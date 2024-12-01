@@ -31,7 +31,7 @@ export default function MainLayout(
   useUpdateMatchesEffect();
 
   return (
-    <main>
+    <div>
       <div className="flex flex-row items-center justify-center gap-1 md:gap-2.5 text-4xl md:text-6xl mb-6 md:mb-12 border-b">
         <img
           src="/relaxo.png"
@@ -107,7 +107,7 @@ export default function MainLayout(
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }
 
