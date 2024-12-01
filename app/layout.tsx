@@ -34,6 +34,7 @@ export default function RootLayout({
           Made with ❤️ by{" "}
           <Link
             href="https://bsky.app/profile/tobeeee.bsky.social"
+            target="_blank"
             className="font-bold"
           >
             Tobito
