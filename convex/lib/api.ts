@@ -14,7 +14,7 @@ export async function fetchHelper<T>(url: string, options: RequestInit = {}) {
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}`);
+    throw new Error(`Status: ${response.status} -  Failed to fetch ${url}`);
   }
 
   return (await response.json()) as T;
