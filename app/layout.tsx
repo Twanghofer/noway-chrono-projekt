@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import ConvexClientProvider from "./ConvexClientProvider";
 import "./globals.css";
 
@@ -30,7 +31,13 @@ export default function RootLayout({
         <hr className="mt-6 mb-3" />
 
         <footer className="text-sm text-center">
-          Made with ❤️ by <strong>Tobito</strong>
+          Made with ❤️ by{" "}
+          <Link
+            href="https://bsky.app/profile/tobeeee.bsky.social"
+            className="font-bold"
+          >
+            Tobito
+          </Link>
         </footer>
       </body>
     </html>
