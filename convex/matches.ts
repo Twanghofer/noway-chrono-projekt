@@ -18,8 +18,6 @@ export const store = internalMutation({
 
     if (!matchInDb) {
       await ctx.db.insert("matches", match);
-    } else {
-      await ctx.db.patch(matchInDb._id, match);
     }
   },
 });

@@ -29,9 +29,24 @@ export const list = query({
   args: {},
   handler: async (ctx) => {
     const champions = await ctx.db.query("champions").collect();
-    return champions.sort(
+    const sortedChampions = champions.sort(
       (a, b) =>
         new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime(),
+    );
+
+    return await Promise.all(
+      sortedChampions.map(async (champion) => {
+        const hasWonWithChampion = !!(await ctx.db
+          .query("matches")
+          .withIndex("by_champion", (q) => q.eq("champion", champion._id))
+          .filter((q) => q.eq(q.field("win"), true))
+          .first());
+
+        return {
+          ...champion,
+          hasWonWithChampion,
+        };
+      }),
     );
   },
 });
