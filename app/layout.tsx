@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
 import { Inter } from "next/font/google";
 import ConvexClientProvider from "./ConvexClientProvider";
 import "./globals.css";
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} dark`}>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <ConvexClientProvider>
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );

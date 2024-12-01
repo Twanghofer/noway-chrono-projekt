@@ -25,7 +25,7 @@ type DataDragonChampionAPIResponse = {
   };
 };
 
-export const list = query({
+export const listWithStats = query({
   args: {},
   handler: async (ctx) => {
     const champions = await ctx.db.query("champions").collect();
@@ -36,15 +36,18 @@ export const list = query({
 
     return await Promise.all(
       sortedChampions.map(async (champion) => {
-        const hasWonWithChampion = !!(await ctx.db
+        const matchesWithChampion = await ctx.db
           .query("matches")
           .withIndex("by_champion", (q) => q.eq("champion", champion._id))
-          .filter((q) => q.eq(q.field("win"), true))
-          .first());
+          .collect();
 
         return {
           ...champion,
-          hasWonWithChampion,
+          matches: matchesWithChampion.sort(
+            (a, b) => b.timestamp - a.timestamp,
+          ),
+          wins: matchesWithChampion.filter((match) => match.win).length,
+          losses: matchesWithChampion.filter((match) => !match.win).length,
         };
       }),
     );
