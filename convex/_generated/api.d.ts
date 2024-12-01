@@ -8,13 +8,13 @@
  * @module
  */
 
+import type * as champions from "../champions.js";
+
 import type {
   ApiFromModules,
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as messages from "../messages.js";
-
 /**
  * A utility for referencing Convex functions in your app's API.
  *
@@ -24,13 +24,62 @@ import type * as messages from "../messages.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  messages: typeof messages;
+  champions: typeof champions;
 }>;
+declare const fullApiWithMounts: typeof fullApi;
+
 export declare const api: FilterApi<
-  typeof fullApi,
+  typeof fullApiWithMounts,
   FunctionReference<any, "public">
 >;
 export declare const internal: FilterApi<
-  typeof fullApi,
+  typeof fullApiWithMounts,
   FunctionReference<any, "internal">
 >;
+
+export declare const components: {
+  actionCache: {
+    cache: {
+      get: FunctionReference<
+        "mutation",
+        "internal",
+        { args: any; name: string; ttl: number | null },
+        any | null
+      >;
+      put: FunctionReference<
+        "mutation",
+        "internal",
+        { args: any; name: string; ttl: number | null; value: any },
+        null
+      >;
+    };
+    crons: {
+      purge: FunctionReference<
+        "mutation",
+        "internal",
+        { expiresAt?: number },
+        null
+      >;
+    };
+    lib: {
+      fetch: FunctionReference<
+        "action",
+        "internal",
+        { args: any; fn: string; name: string; ttl: number | null },
+        any
+      >;
+      remove: FunctionReference<
+        "mutation",
+        "internal",
+        { args: any; name: string },
+        null
+      >;
+      removeAll: FunctionReference<
+        "mutation",
+        "internal",
+        { before?: number; name?: string },
+        null
+      >;
+    };
+  };
+};
