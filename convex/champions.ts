@@ -28,7 +28,10 @@ type DataDragonChampionAPIResponse = {
 export const listWithStats = query({
   args: {},
   handler: async (ctx) => {
-    const champions = await ctx.db.query("champions").collect();
+    const champions = await ctx.db
+      .query("champions")
+      .filter((q) => q.eq(q.field("isHidden"), false || undefined))
+      .collect();
     const sortedChampions = champions.sort(
       (a, b) =>
         new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime(),

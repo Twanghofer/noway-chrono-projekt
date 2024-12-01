@@ -7,6 +7,7 @@ export const championSchema = {
   key: v.string(),
   releaseDate: v.string(),
   imageUrl: v.string(),
+  isHidden: v.optional(v.boolean()),
 };
 
 export const matchSchema = {
