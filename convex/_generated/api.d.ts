@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as challenge from "../challenge.js";
 import type * as champions from "../champions.js";
 import type * as lib_api from "../lib/api.js";
 import type * as lib_constants from "../lib/constants.js";
@@ -28,6 +29,7 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  challenge: typeof challenge;
   champions: typeof champions;
   "lib/api": typeof lib_api;
   "lib/constants": typeof lib_constants;

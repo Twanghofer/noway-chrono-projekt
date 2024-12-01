@@ -25,5 +25,7 @@ export default defineSchema({
   champions: defineTable(championSchema)
     .index("by_champion_id", ["id"])
     .index("by_champion_key", ["key"]),
-  matches: defineTable(matchSchema).index("by_match_id", ["id"]),
+  matches: defineTable(matchSchema)
+    .index("by_match_id", ["id"])
+    .index("by_champion", ["champion"]),
 });

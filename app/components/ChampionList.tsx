@@ -1,8 +1,9 @@
 "use client";
 
 import { api } from "@/convex/_generated/api";
-import { Preloaded, usePreloadedQuery } from "convex/react";
+import { Preloaded, usePreloadedQuery, useQuery } from "convex/react";
 import { useUpdateMatchesEffect } from "../lib/useUpdateEffect";
+import ChampionAvatar from "./ChampionAvatar";
 
 export default function ChampionList(
   props: Readonly<{
@@ -10,24 +11,50 @@ export default function ChampionList(
   }>,
 ) {
   const champions = usePreloadedQuery(props.prefetchedChampions);
+  const currentChampion = useQuery(api.challenge.currentChampion);
+  const upcomingChampions = useQuery(api.challenge.upcomingChampions);
 
   useUpdateMatchesEffect();
 
   return (
-    <div>
-      <ul className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-4">
-        {champions?.map((champion, index) => (
-          <li key={champion.id}>
-            <img
-              src={`https://ddragon.leagueoflegends.com/cdn/14.23.1/img/champion/${champion.id}.png`}
-              alt={champion.name}
-              width={128}
-              height={128}
-              loading={index < 25 ? "eager" : "lazy"}
-            />
-          </li>
-        ))}
-      </ul>
+    <div className="space-y-9">
+      <h1 className="text-6xl">Chrono Projekt</h1>
+
+      <div className="flex flex-row">
+        <div className="flex-grow">
+          <h2 className="text-3xl">Current Champion</h2>
+          <div className="mt-5">
+            {currentChampion ? (
+              <ChampionAvatar champion={currentChampion} />
+            ) : (
+              "Challenge completed!"
+            )}
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-3xl">Upcoming Champions</h2>
+          <ul className="mt-5 space-y-5">
+            {upcomingChampions?.map((champion) => (
+              <li key={champion.id} className="flex justify-center">
+                <ChampionAvatar champion={champion} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="text-3xl">Champion List</h2>
+
+        <ul className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-4 mt-4">
+          {champions?.map((champion) => (
+            <li key={champion.id}>
+              <ChampionAvatar champion={champion} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
