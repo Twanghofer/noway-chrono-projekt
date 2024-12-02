@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as champions from "../champions.js";
+import type * as crons from "../crons.js";
 import type * as lib_api from "../lib/api.js";
 import type * as lib_constants from "../lib/constants.js";
 import type * as lib_rateLimiter from "../lib/rateLimiter.js";
@@ -29,6 +30,7 @@ import type * as matches from "../matches.js";
  */
 declare const fullApi: ApiFromModules<{
   champions: typeof champions;
+  crons: typeof crons;
   "lib/api": typeof lib_api;
   "lib/constants": typeof lib_constants;
   "lib/rateLimiter": typeof lib_rateLimiter;
