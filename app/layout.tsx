@@ -22,8 +22,19 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body
-        className={`${inter.className} dark mx-auto w-full max-w-screen-lg p-4`}
+        className={`${inter.className} dark mx-auto w-full max-w-screen-xl p-4`}
       >
+        <header className="flex flex-row items-center justify-center gap-1 md:gap-2.5 mb-6 md:mb-12 border-b">
+          <img
+            src="/relaxo.png"
+            alt="Noway"
+            className="aspect-square size-12 sm:size-20 md:size-24"
+          />
+          <h1 className="py-3 sm:py-7 md:py-8 text-4xl sm:text-5xl md:text-6xl font-medium">
+            Chrono Projekt
+          </h1>
+        </header>
+
         <ConvexClientProvider>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </ConvexClientProvider>

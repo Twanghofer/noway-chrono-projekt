@@ -29,10 +29,10 @@ export default function CurrentChampionBox(
 
   return (
     <div>
-      <div className="mb-2">
-        <h3 className="text-4xl font-medium">{props.champion.name}</h3>
+      <div className="mb-2 flex flex-col items-center">
+        <h3 className="text-5xl font-medium">{props.champion.name}</h3>
 
-        <p className="opacity-50 font-light">
+        <p className="opacity-50 font-light mt-1">
           Release date:{" "}
           {format.dateTime(new Date(props.champion.releaseDate), {
             dateStyle: "medium",
@@ -40,7 +40,7 @@ export default function CurrentChampionBox(
         </p>
       </div>
 
-      <div className="flex flex-row gap-4 flex-wrap">
+      <div className="flex flex-row gap-4 flex-wrap mt-5 justify-center">
         <div>
           <ChampionAvatar champion={props.champion} className="self-start" />
           <div className="text-center text-lg font-medium">
@@ -49,7 +49,7 @@ export default function CurrentChampionBox(
         </div>
 
         {props.champion.matches && (
-          <ul className="space-y-3 flex-grow md:flex-grow-0 md:w-fit min-w-80 max-w-full">
+          <ul className="space-y-3 flex-grow sm:flex-grow-0 md:w-fit min-w-24 sm:min-w-96 max-w-full">
             {props.champion.matches.slice(0, 3).map((match) => (
               <li
                 key={match.id}
@@ -74,7 +74,7 @@ export default function CurrentChampionBox(
                     / {match.playerStats.assists}
                   </div>
 
-                  <Button className="ml-auto" asChild>
+                  <Button asChild>
                     <Link
                       href={`https://www.deeplol.gg/summoner/euw/MatheMann4u-EUW/matches/${match.id}`}
                       target="_blank"
