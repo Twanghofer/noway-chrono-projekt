@@ -15,7 +15,7 @@ export default function MainLayout(
   const champions = usePreloadedQuery(props.preloadedChampionList);
 
   const currentChampion = React.useMemo(() => {
-    return champions[0];
+    return champions?.find((champion) => !champion.wins);
   }, [champions]);
 
   const upcomingChampions = React.useMemo(() => {
