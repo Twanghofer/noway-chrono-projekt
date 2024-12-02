@@ -48,7 +48,7 @@ export default function CurrentChampionBox(
           </div>
         </div>
 
-        {props.champion.matches && (
+        {props.champion.matches.length > 0 && (
           <ul className="space-y-3 flex-grow sm:flex-grow-0 md:w-fit min-w-24 sm:min-w-96 max-w-full">
             {props.champion.matches.slice(0, 3).map((match) => (
               <li
