@@ -61,7 +61,7 @@ export default function MainLayout(
           </div>
         )}
 
-        <div className="max-w-md mx-auto space-y-2">
+        <div className="w-5/6 max-w-md mx-auto space-y-2">
           <Progress value={percentageChampionsDone} />
           <div className="text-center">
             Challenge zu{" "}
