@@ -100,14 +100,13 @@ export default function MainLayout(
             <li
               key={champion.id}
               className={`border ${champion.wins ? "border-2 border-green-950" : ""} ${champion === currentChampion ? "border-2 border-foreground/75" : ""}`}
-              title={`Release Datum: ${new Date(champion.releaseDate).toLocaleDateString("de-DE")}`}
             >
               <ChampionAvatar champion={champion} className="w-full" />
 
-              <div className="text-center p-1.5">
+              <div className="text-center px-1.5 py-2">
                 <h3 className="font-medium">{champion.name}</h3>
 
-                <div className="text-sm">
+                <div className="text-sm font-light">
                   {champion.matches.length > 0 &&
                     (champion.losses ? (
                       <div>
