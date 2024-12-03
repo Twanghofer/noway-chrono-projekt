@@ -49,29 +49,28 @@ export default function MainLayout(
 
   return (
     <div className="space-y-10">
-      <div className="space-y-8 md:space-y-10">
-        {currentChampion ? (
+      {currentChampion ? (
+        <div className="space-y-8 md:space-y-10">
           <div className="flex flex-col items-center">
             <SubHeadline className="mb-2">Aktueller Champion</SubHeadline>
             <CurrentChampionBox champion={currentChampion} />
           </div>
-        ) : (
-          <div className="text-center text-green-500 text-2xl md:text-3xl">
-            Challenge completed! Congratulations! 🎉
-          </div>
-        )}
-
-        <div className="w-5/6 max-w-md mx-auto space-y-2">
-          <Progress value={percentageChampionsDone} />
-          <div className="text-center">
-            Challenge zu{" "}
-            <span className="font-bold">
-              {Math.floor(percentageChampionsDone)}%
-            </span>{" "}
-            abgeschlossen
+          <div className="w-5/6 max-w-md mx-auto space-y-2">
+            <Progress value={percentageChampionsDone} />
+            <div className="text-center">
+              Challenge zu{" "}
+              <span className="font-bold">
+                {Math.floor(percentageChampionsDone)}%
+              </span>{" "}
+              abgeschlossen
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="text-center text-green-500 text-2xl md:text-3xl my-10 md:my-20">
+          Challenge completed! <br /> Congrats! 🎉
+        </div>
+      )}
 
       <div className="flex gap-8 md:gap-x-[8%] flex-wrap sm:flex-nowrap sm:justify-evenly">
         {upcomingChampions.length > 0 && (
@@ -80,7 +79,7 @@ export default function MainLayout(
             <ul className="flex flex-row gap-3 md:gap-4">
               {upcomingChampions?.map((champion) => (
                 <li key={champion.id} className="flex">
-                  <ChampionAvatar champion={champion} className="w-28" />
+                  <ChampionAvatar champion={champion} className="w-32" />
                 </li>
               ))}
             </ul>
@@ -97,11 +96,9 @@ export default function MainLayout(
               >
                 <ChampionAvatar
                   champion={champion}
-                  className="w-28 border-2 border-red-950"
+                  className="w-32 border-2 border-red-950"
                 />
-                <div className="mt-1">
-                  <span className="">{champion.matches.length}</span> Versuche
-                </div>
+                <div className="mt-1">{champion.matches.length} Versuche</div>
               </li>
             ))}
           </ul>
@@ -113,7 +110,7 @@ export default function MainLayout(
           Alle Champions ({amountChampionsDone} / {champions.length})
         </SubHeadline>
 
-        <ul className="grid grid-cols-[repeat(auto-fill,minmax(clamp(10%,100px,30%),1fr))] gap-3 sm:gap-4">
+        <ul className="grid grid-cols-[repeat(auto-fill,minmax(clamp(10%,115px,30%),1fr))] gap-3 sm:gap-4">
           {champions.map((champion) => (
             <li
               key={champion.id}

@@ -42,7 +42,10 @@ export default function CurrentChampionBox(
 
       <div className="flex flex-row gap-4 flex-wrap mt-5 justify-center">
         <div>
-          <ChampionAvatar champion={props.champion} className="self-start" />
+          <ChampionAvatar
+            champion={props.champion}
+            className="self-start w-36"
+          />
           <div className="text-center text-lg font-medium">
             {currentChampionStats?.wins} - {currentChampionStats?.losses}
           </div>
