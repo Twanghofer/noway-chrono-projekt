@@ -33,7 +33,7 @@ export default function RootLayout({
               className="aspect-square size-16 sm:size-20 md:size-24 rounded-full border-4"
             />
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium">
-              Chrono Projekt
+              Chrono <br className="block fold:hidden" /> Projekt
             </h1>
           </header>
 
