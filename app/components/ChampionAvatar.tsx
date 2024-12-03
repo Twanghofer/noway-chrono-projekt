@@ -14,6 +14,7 @@ export default function ChampionAvatar(
   props: Readonly<{
     champion: FunctionReturnType<typeof api.champions.listWithStats>[number];
     className?: string;
+    lazyLoad?: boolean;
   }>,
 ) {
   const format = useFormatter();
@@ -36,6 +37,7 @@ export default function ChampionAvatar(
             alt={props.champion.name}
             width={128}
             height={128}
+            loading={props.lazyLoad ? "lazy" : "eager"}
           />
         </TooltipTrigger>
         <TooltipContent>

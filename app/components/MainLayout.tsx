@@ -116,7 +116,11 @@ export default function MainLayout(
               key={champion.id}
               className={`border ${champion.wins ? "border-2 border-green-950" : ""} ${champion === currentChampion ? "border-2 border-foreground/75" : ""}`}
             >
-              <ChampionAvatar champion={champion} className="w-full" />
+              <ChampionAvatar
+                champion={champion}
+                className="w-full"
+                lazyLoad={true}
+              />
 
               <div className="text-center px-1.5 py-2">
                 <h3 className="font-medium">{champion.name}</h3>
