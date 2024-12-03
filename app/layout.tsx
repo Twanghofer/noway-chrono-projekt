@@ -24,13 +24,13 @@ export default function RootLayout({
       <body
         className={`${inter.className} dark mx-auto w-full max-w-screen-xl p-4`}
       >
-        <header className="flex flex-row items-center justify-center gap-2 md:gap-2.5 mb-6 md:mb-12 border-b">
+        <header className="flex flex-row items-center justify-center gap-2 md:gap-2.5 mb-6 md:mb-12 border-b py-2 sm:py-3.5 md:py-5">
           <img
             src="/relaxo.jpg"
             alt="Noway"
-            className="aspect-square size-12 sm:size-20 md:size-24 rounded-full"
+            className="aspect-square size-16 sm:size-20 md:size-24 rounded-full border-4"
           />
-          <h1 className="py-3 sm:py-7 md:py-8 text-4xl sm:text-5xl md:text-6xl font-medium">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium">
             Chrono Projekt
           </h1>
         </header>
