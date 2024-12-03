@@ -3,6 +3,7 @@
 import { api } from "@/convex/_generated/api";
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import React from "react";
+import { twMerge } from "tailwind-merge";
 import { useUpdateMatchesEffect } from "../lib/useUpdateEffect";
 import ChampionAvatar from "./ChampionAvatar";
 import CurrentChampionBox from "./CurrentChampionBox";
@@ -45,7 +46,7 @@ export default function MainLayout(
     <div className="space-y-10">
       {currentChampion ? (
         <div className="flex flex-col items-center">
-          <SubHeadline>Aktueller Champion</SubHeadline>
+          <SubHeadline className="mb-2">Aktueller Champion</SubHeadline>
           <CurrentChampionBox champion={currentChampion} />
         </div>
       ) : (
@@ -127,8 +128,17 @@ export default function MainLayout(
   );
 }
 
-function SubHeadline(props: Readonly<{ children: React.ReactNode }>) {
+function SubHeadline(
+  props: Readonly<{ children: React.ReactNode; className?: string }>,
+) {
   return (
-    <h2 className="text-xl md:text-2xl mb-3 font-medium">{props.children}</h2>
+    <h2
+      className={twMerge(
+        "text-xl md:text-2xl mb-3 font-medium",
+        props.className,
+      )}
+    >
+      {props.children}
+    </h2>
   );
 }
