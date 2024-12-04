@@ -5,6 +5,7 @@ import { Progress } from "@/src/components/ui/progress";
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import useChampionAnalytics from "../lib/useChampionAnalytics";
 import { useUpdateMatchesEffect } from "../lib/useUpdateEffect";
 import ChampionAvatar from "./ChampionAvatar";
 import CurrentChampionBox from "./CurrentChampionBox";
@@ -16,30 +17,13 @@ export default function HomeLayout(
 ) {
   const champions = usePreloadedQuery(props.preloadedChampionList);
 
-  const currentChampion = React.useMemo(() => {
-    return champions?.find((champion) => !champion.wins);
-  }, [champions]);
-
-  const upcomingChampions = React.useMemo(() => {
-    return champions
-      ?.filter((champion) => !champion.wins && champion !== currentChampion)
-      .slice(0, 3);
-  }, [champions, currentChampion]);
-
-  const mostPlayedChampions = React.useMemo(() => {
-    return champions
-      ?.filter((champion) => champion.matches.length > 0)
-      .sort((a, b) => b.matches.length - a.matches.length)
-      .slice(0, 3);
-  }, [champions]);
-
-  const amountChampionsDone = React.useMemo(() => {
-    return champions?.filter((champion) => champion.wins).length;
-  }, [champions]);
-
-  const percentageChampionsDone = React.useMemo(() => {
-    return (amountChampionsDone / champions.length) * 100;
-  }, [amountChampionsDone, champions]);
+  const {
+    currentChampion,
+    upcomingChampions,
+    mostPlayedChampions,
+    amountChampionsDone,
+    percentageChampionsDone,
+  } = useChampionAnalytics(champions);
 
   useUpdateMatchesEffect();
 
@@ -55,6 +39,7 @@ export default function HomeLayout(
             <SubHeadline className="mb-2">Aktueller Champion</SubHeadline>
             <CurrentChampionBox champion={currentChampion} />
           </div>
+
           <div className="w-5/6 max-w-md mx-auto space-y-2">
             <Progress value={percentageChampionsDone} />
             <div className="text-center">
@@ -76,6 +61,7 @@ export default function HomeLayout(
         {upcomingChampions.length > 0 && (
           <div>
             <SubHeadline>Nächste Champions</SubHeadline>
+
             <ul className="flex flex-row gap-3 md:gap-4">
               {upcomingChampions?.map((champion) => (
                 <li key={champion.id} className="flex">
@@ -88,12 +74,10 @@ export default function HomeLayout(
 
         <div>
           <SubHeadline>Meisten Versuche</SubHeadline>
+
           <ul className="flex flex-row gap-3 md:gap-4">
             {mostPlayedChampions?.map((champion) => (
-              <li
-                key={champion.id}
-                className="flex flex-col justify-start items-center"
-              >
+              <li key={champion.id} className="flex flex-col items-center">
                 <ChampionAvatar
                   champion={champion}
                   className="w-32 border-2 border-red-950"

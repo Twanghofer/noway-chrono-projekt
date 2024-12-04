@@ -1,18 +1,17 @@
-import { api } from "@/convex/_generated/api";
+import { ChampionWithStats } from "@/convex/champions";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/src/components/ui/tooltip";
-import { FunctionReturnType } from "convex/server";
 import { useFormatter } from "next-intl";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function ChampionAvatar(
   props: Readonly<{
-    champion: FunctionReturnType<typeof api.champions.listWithStats>[number];
+    champion: ChampionWithStats;
     className?: string;
     lazyLoad?: boolean;
   }>,
@@ -40,6 +39,7 @@ export default function ChampionAvatar(
             loading={props.lazyLoad ? "lazy" : "eager"}
           />
         </TooltipTrigger>
+
         <TooltipContent>
           <strong className="text-sm mb-3"> {props.champion.name} </strong>
 

@@ -1,5 +1,6 @@
+import { FunctionReturnType } from "convex/server";
 import { v } from "convex/values";
-import { internal } from "./_generated/api";
+import { api, internal } from "./_generated/api";
 import {
   action,
   internalMutation,
@@ -26,6 +27,10 @@ type DataDragonChampionAPIResponse = {
     };
   };
 };
+
+export type ChampionWithStats = FunctionReturnType<
+  typeof api.champions.listWithStats
+>[number];
 
 export const listWithStats = query({
   args: {},

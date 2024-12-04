@@ -1,8 +1,7 @@
 "use client";
 
-import { api } from "@/convex/_generated/api";
+import { ChampionWithStats } from "@/convex/champions";
 import { Button } from "@/src/components/ui/button";
-import { FunctionReturnType } from "convex/server";
 import { useFormatter } from "next-intl";
 import Link from "next/link";
 import React from "react";
@@ -10,7 +9,7 @@ import ChampionAvatar from "./ChampionAvatar";
 
 export default function CurrentChampionBox(
   props: Readonly<{
-    champion: FunctionReturnType<typeof api.champions.listWithStats>[number];
+    champion: ChampionWithStats;
   }>,
 ) {
   const format = useFormatter();
@@ -46,6 +45,7 @@ export default function CurrentChampionBox(
             champion={props.champion}
             className="self-start w-36"
           />
+
           <div className="text-center text-lg font-medium">
             {currentChampionStats?.wins} - {currentChampionStats?.losses}
           </div>
