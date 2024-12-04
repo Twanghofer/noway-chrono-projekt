@@ -33,29 +33,34 @@ export default function HomeLayout(
 
   return (
     <div className="space-y-10">
-      {currentChampion ? (
-        <div className="space-y-8 md:space-y-10">
+      <div className="space-y-8 md:space-y-10">
+        {currentChampion && (
           <div className="flex flex-col items-center">
             <SubHeadline className="mb-2">Aktueller Champion</SubHeadline>
             <CurrentChampionBox champion={currentChampion} />
           </div>
+        )}
 
-          <div className="w-5/6 max-w-md mx-auto space-y-2">
-            <Progress value={percentageChampionsDone} />
-            <div className="text-center">
-              Challenge zu{" "}
-              <span className="font-bold">
-                {Math.floor(percentageChampionsDone)}%
-              </span>{" "}
-              abgeschlossen
-            </div>
+        <div className="w-5/6 max-w-md mx-auto space-y-2 first:my-10 md:first:my-16">
+          <Progress value={percentageChampionsDone} color="red" />
+
+          <div className="text-center">
+            {percentageChampionsDone !== 100 ? (
+              <div>
+                Challenge zu{" "}
+                <span className="font-bold">
+                  {Math.floor(percentageChampionsDone)}%
+                </span>{" "}
+                abgeschlossen
+              </div>
+            ) : (
+              <div className="text-green-500">
+                Challenge completed! Congrats! 🎉
+              </div>
+            )}
           </div>
         </div>
-      ) : (
-        <div className="text-center text-green-500 text-2xl md:text-3xl my-10 md:my-20">
-          Challenge completed! <br /> Congrats! 🎉
-        </div>
-      )}
+      </div>
 
       <div className="flex gap-8 md:gap-x-[8%] flex-wrap sm:flex-nowrap sm:justify-evenly">
         {upcomingChampions.length > 0 && (
