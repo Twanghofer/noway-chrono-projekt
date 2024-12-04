@@ -9,7 +9,7 @@ import { useUpdateMatchesEffect } from "../lib/useUpdateEffect";
 import ChampionAvatar from "./ChampionAvatar";
 import CurrentChampionBox from "./CurrentChampionBox";
 
-export default function MainLayout(
+export default function HomeLayout(
   props: Readonly<{
     preloadedChampionList: Preloaded<typeof api.champions.listWithStats>;
   }>,

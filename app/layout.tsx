@@ -1,10 +1,10 @@
-import { PHProvider } from "@/_analytics/provider";
+import { TrackingProvider } from "@/app/lib/TrackingProvider";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import ConvexClientProvider from "./ConvexClientProvider";
 import "./globals.css";
+import ConvexClientProvider from "./lib/ConvexClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <PHProvider>
+    <TrackingProvider>
       <html lang="de">
         <body
           className={`${inter.className} dark mx-auto w-full max-w-screen-xl p-4`}
@@ -55,6 +55,6 @@ export default function RootLayout({
           </footer>
         </body>
       </html>
-    </PHProvider>
+    </TrackingProvider>
   );
 }
