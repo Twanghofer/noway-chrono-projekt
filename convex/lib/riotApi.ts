@@ -32,10 +32,20 @@ export const getRiotAccountDetails = async ({
 }: {
   gameName: string;
   tagLine: string;
-}) =>
-  await fetchFromRiotApi<AccountDto>(
-    `${RIOT_API_BASE_URL}/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`,
-  );
+}) => {
+  try {
+    return await fetchFromRiotApi<AccountDto>(
+      `${RIOT_API_BASE_URL}/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`,
+    );
+  } catch (error) {
+    console.error(error);
+
+    // Return default PUUID if error occurs
+    return {
+      puuid: "RGAPI-2f6f79a6-6721-412c-b070-bcd3309218ba",
+    };
+  }
+};
 
 export const getMatchList = async (puuid: string, { page = 1 } = {}) => {
   const PER_PAGE = 10;
