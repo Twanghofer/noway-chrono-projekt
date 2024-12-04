@@ -1,5 +1,4 @@
-// Generated with Claude AI, just happy this works lol
-
+// Generated with Claude AI, don't ask - just happy this works lol
 interface RateLimitOptions {
   priorityRequest?: boolean; // Allow bypassing queue for critical requests
   maxRequestsPerSecond?: number;

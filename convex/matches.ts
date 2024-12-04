@@ -6,7 +6,11 @@ import {
   internalMutation,
   query,
 } from "./_generated/server";
-import { getMatchDetails, getMatchList } from "./lib/api";
+import {
+  getMatchDetails,
+  getMatchList,
+  getRiotAccountDetails,
+} from "./lib/riotApi";
 import { matchSchema } from "./schema";
 
 export const byId = query({
@@ -45,20 +49,22 @@ export const store = internalMutation({
 export const update = action({
   args: {},
   handler: async (ctx) => {
+    const { puuid } = await getRiotAccountDetails({
+      gameName: "MatheMann4u",
+      tagLine: "EUW",
+    });
+
     let page: number | null = 1;
 
     while (page) {
-      const { nextPage } = await getNewMatches(ctx, { page });
+      const { nextPage } = await getNewMatches(puuid, ctx, { page });
       page = nextPage;
     }
   },
 });
 
-async function getNewMatches(
-  ctx: ActionCtx,
-  { page = 1 }: { page?: number } = {},
-) {
-  const { matchIds, nextPage } = await getMatchList({ page });
+async function getNewMatches(puuid: string, ctx: ActionCtx, { page = 1 } = {}) {
+  const { matchIds, nextPage } = await getMatchList(puuid, { page });
   const newMatchIds: typeof matchIds = [];
 
   for (const matchId of matchIds) {
@@ -75,7 +81,18 @@ async function getNewMatches(
   }
 
   const matchesWithChampionRelation = newMatchIds.map(async (matchId) => {
-    const { championKey, ...match } = await getMatchDetails(matchId);
+    const matchDetails = await getMatchDetails(matchId);
+
+    const playerParticipation = matchDetails.info.participants.find(
+      (p) => p.puuid === puuid,
+    );
+
+    if (!playerParticipation) {
+      throw new Error("Player not found in match");
+    }
+
+    const championKey = String(playerParticipation?.championId);
+
     const champion = await ctx.runQuery(internal.champions.byKey, {
       key: championKey,
     });
@@ -85,8 +102,15 @@ async function getNewMatches(
     }
 
     return {
-      ...match,
+      id: matchDetails.metadata.matchId,
+      timestamp: matchDetails.info.gameCreation,
       champion: champion?._id,
+      win: !!playerParticipation?.win,
+      playerStats: {
+        kills: playerParticipation?.kills,
+        deaths: playerParticipation?.deaths,
+        assists: playerParticipation?.assists,
+      },
     };
   });
 

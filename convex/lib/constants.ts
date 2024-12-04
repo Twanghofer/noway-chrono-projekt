@@ -1,8 +1,3 @@
-export const nowaySummonerDetails = {
-  gameName: "MatheMann4u",
-  tagLine: "EUW",
-} as const;
-
 // Source: https://leagueoflegends.fandom.com/wiki/List_of_champions
 export const championReleaseDates = {
   Alistar: "2009-02-21",

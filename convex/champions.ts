@@ -6,8 +6,9 @@ import {
   internalQuery,
   query,
 } from "./_generated/server";
-import { DATA_DRAGON_BASE_URL, fetchHelper } from "./lib/api";
 import { championReleaseDates } from "./lib/constants";
+import { DATA_DRAGON_BASE_URL } from "./lib/riotApi";
+import { customFetch } from "./lib/utils";
 import { championSchema } from "./schema";
 
 type DataDragonChampionAPIResponse = {
@@ -96,7 +97,7 @@ export const store = internalMutation({
 export const update = action({
   args: {},
   handler: async (ctx) => {
-    const response = await fetchHelper<DataDragonChampionAPIResponse>(
+    const response = await customFetch<DataDragonChampionAPIResponse>(
       `${DATA_DRAGON_BASE_URL}/data/en_US/champion.json`,
     );
 
