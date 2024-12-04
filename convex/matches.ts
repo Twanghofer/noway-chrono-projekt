@@ -6,6 +6,7 @@ import {
   internalMutation,
   query,
 } from "./_generated/server";
+import { nowaySummonerDetails } from "./lib/constants";
 import {
   getMatchDetails,
   getMatchList,
@@ -49,10 +50,7 @@ export const store = internalMutation({
 export const update = action({
   args: {},
   handler: async (ctx) => {
-    const { puuid } = await getRiotAccountDetails({
-      gameName: "MatheMann4u",
-      tagLine: "EUW",
-    });
+    const { puuid } = await getRiotAccountDetails(nowaySummonerDetails);
 
     let page: number | null = 1;
 
