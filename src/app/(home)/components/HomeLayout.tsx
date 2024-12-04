@@ -43,7 +43,7 @@ export default function HomeLayout(
 
   useUpdateMatchesEffect();
 
-  if (!champions) {
+  if (!champions.length) {
     return null;
   }
 

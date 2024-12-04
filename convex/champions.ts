@@ -6,11 +6,9 @@ import {
   internalQuery,
   query,
 } from "./_generated/server";
-import { fetchHelper } from "./lib/api";
+import { DATA_DRAGON_BASE_URL, fetchHelper } from "./lib/api";
 import { championReleaseDates } from "./lib/constants";
 import { championSchema } from "./schema";
-
-const DATA_DRAGON_BASE_URL = "https://ddragon.leagueoflegends.com/cdn/14.23.1";
 
 type DataDragonChampionAPIResponse = {
   type: string;
@@ -21,6 +19,9 @@ type DataDragonChampionAPIResponse = {
       name: string;
       id: string;
       key: string;
+      image: {
+        full: string;
+      };
     };
   };
 };
@@ -32,6 +33,7 @@ export const listWithStats = query({
       .query("champions")
       .filter((q) => q.eq(q.field("isHidden"), false || undefined))
       .collect();
+
     const sortedChampions = champions.sort(
       (a, b) =>
         new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime(),
@@ -104,10 +106,10 @@ export const update = action({
       key: champion.key,
       releaseDate:
         championReleaseDates[champion.id as keyof typeof championReleaseDates],
-      imageUrl: `${DATA_DRAGON_BASE_URL}/img/champion/${champion.id}.png`,
+      imageUrl: `${DATA_DRAGON_BASE_URL}/img/champion/${champion.image.full}`,
     }));
 
-    await ctx.scheduler.runAfter(0, internal.champions.store, {
+    await ctx.runMutation(internal.champions.store, {
       champions,
     });
   },

@@ -1,6 +1,9 @@
 import RateLimiter from "./rateLimiter";
 import { MatchV5DTOs } from "./riot-api";
 
+export const DATA_DRAGON_BASE_URL =
+  "https://ddragon.leagueoflegends.com/cdn/14.23.1";
+
 const LOL_MATCH_API_BASE_URL =
   "https://europe.api.riotgames.com/lol/match/v5/matches";
 
