@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
+import { Button } from "@/src/components/ui/button";
 import { FunctionReturnType } from "convex/server";
 import { useFormatter } from "next-intl";
 import Link from "next/link";

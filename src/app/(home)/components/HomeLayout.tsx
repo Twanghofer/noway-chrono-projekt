@@ -1,7 +1,7 @@
 "use client";
 
-import { Progress } from "@/components/ui/progress";
 import { api } from "@/convex/_generated/api";
+import { Progress } from "@/src/components/ui/progress";
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import React from "react";
 import { twMerge } from "tailwind-merge";

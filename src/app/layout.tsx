@@ -1,4 +1,4 @@
-import { TrackingProvider } from "@/app/lib/TrackingProvider";
+import { TrackingProvider } from "@/src/app/lib/TrackingProvider";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { Inter } from "next/font/google";

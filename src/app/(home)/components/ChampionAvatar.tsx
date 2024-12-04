@@ -1,10 +1,10 @@
+import { api } from "@/convex/_generated/api";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { api } from "@/convex/_generated/api";
+} from "@/src/components/ui/tooltip";
 import { FunctionReturnType } from "convex/server";
 import { useFormatter } from "next-intl";
 import React from "react";
