@@ -42,7 +42,8 @@ export const getRiotAccountDetails = async ({
 
     // Return default PUUID if error occurs
     return {
-      puuid: "RGAPI-2f6f79a6-6721-412c-b070-bcd3309218ba",
+      puuid:
+        "6wWyX68cGsmqaKqtLehPupz5lzO9nP5NWvbOnuwJAEF-7wlu9-c9qVwXG8AYw2mKX-GWQ1-y7p71nA",
     };
   }
 };
