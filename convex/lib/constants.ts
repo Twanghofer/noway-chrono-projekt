@@ -3,6 +3,8 @@ export const nowaySummonerDetails = {
   tagLine: "EUW",
 } as const;
 
+export const excludedChampions = ["Yuumi"];
+
 // Source: https://leagueoflegends.fandom.com/wiki/List_of_champions
 export const championReleaseDates = {
   Alistar: "2009-02-21",
@@ -175,5 +177,3 @@ export const championReleaseDates = {
   Aurora: "2024-07-18",
   Ambessa: "2024-11-26",
 } as const;
-
-export const excludedChampions = ["Yuumi"];
