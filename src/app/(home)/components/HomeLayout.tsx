@@ -12,10 +12,10 @@ import CurrentChampionBox from "./CurrentChampionBox";
 
 export default function HomeLayout(
   props: Readonly<{
-    preloadedChampionList: Preloaded<typeof api.champions.listWithStats>;
+    preloadedChampionListQuery: Preloaded<typeof api.champions.listWithStats>;
   }>,
 ) {
-  const champions = usePreloadedQuery(props.preloadedChampionList);
+  const champions = usePreloadedQuery(props.preloadedChampionListQuery);
 
   const {
     currentChampion,
