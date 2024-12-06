@@ -4,7 +4,6 @@ import { ChampionWithStats } from "@/convex/champions";
 import { Button } from "@/src/components/ui/button";
 import { useFormatter } from "next-intl";
 import Link from "next/link";
-import React from "react";
 import ChampionAvatar from "./ChampionAvatar";
 
 export default function CurrentChampionBox(
@@ -13,18 +12,6 @@ export default function CurrentChampionBox(
   }>,
 ) {
   const format = useFormatter();
-
-  const currentChampionStats = React.useMemo(() => {
-    return props.champion?.matches.reduce(
-      (acc, match) => {
-        acc.wins += match.win ? 1 : 0;
-        acc.losses += match.win ? 0 : 1;
-
-        return acc;
-      },
-      { wins: 0, losses: 0 },
-    );
-  }, [props.champion]);
 
   return (
     <div>
@@ -47,7 +34,7 @@ export default function CurrentChampionBox(
           />
 
           <div className="text-center text-lg font-medium">
-            {currentChampionStats?.wins} - {currentChampionStats?.losses}
+            {props.champion.wins} - {props.champion.losses}
           </div>
         </div>
 
