@@ -7,7 +7,7 @@ import {
   internalQuery,
   query,
 } from "./_generated/server";
-import { championReleaseDates } from "./lib/constants";
+import { championReleaseDates, excludedChampions } from "./lib/constants";
 import { DATA_DRAGON_BASE_URL } from "./lib/riotApi";
 import { customFetch } from "./lib/utils";
 import { championSchema } from "./schema";
@@ -88,6 +88,10 @@ export const store = internalMutation({
           .query("champions")
           .withIndex("by_champion_id", (q) => q.eq("id", champion.id))
           .unique();
+
+        if (excludedChampions.includes(champion.id)) {
+          champion.isHidden = true;
+        }
 
         if (!championInDb) {
           await ctx.db.insert("champions", champion);

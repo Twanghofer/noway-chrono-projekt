@@ -6,7 +6,6 @@ import { Preloaded, usePreloadedQuery } from "convex/react";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import useChampionAnalytics from "../lib/useChampionAnalytics";
-import { useUpdateMatchesEffect } from "../lib/useUpdateEffect";
 import ChampionAvatar from "./ChampionAvatar";
 import CurrentChampionBox from "./CurrentChampionBox";
 
@@ -24,8 +23,6 @@ export default function HomeLayout(
     amountChampionsDone,
     percentageChampionsDone,
   } = useChampionAnalytics(champions);
-
-  useUpdateMatchesEffect();
 
   if (!champions.length) {
     return null;

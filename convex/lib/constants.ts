@@ -175,3 +175,5 @@ export const championReleaseDates = {
   Aurora: "2024-07-18",
   Ambessa: "2024-11-26",
 } as const;
+
+export const excludedChampions = ["Yuumi"];

@@ -1,8 +1,11 @@
 import { api } from "@/convex/_generated/api";
-import { preloadQuery } from "convex/nextjs";
+import { fetchAction, preloadQuery } from "convex/nextjs";
 import HomeLayout from "./components/HomeLayout";
 
 export default async function Home() {
+  await fetchAction(api.champions.update);
+  await fetchAction(api.matches.update);
+
   const preloadedChampionListQuery = await preloadQuery(
     api.champions.listWithStats,
   );
